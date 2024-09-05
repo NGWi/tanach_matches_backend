@@ -27,18 +27,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_05_174200) do
     t.string "book"
     t.integer "chapter"
     t.integer "verse_number"
-    t.string "text"
+    t.text "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "words", force: :cascade do |t|
+    t.bigint "verse_id", null: false
     t.string "text"
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["verse_id"], name: "index_words_on_verse_id"
   end
 
   add_foreign_key "matches", "words"
   add_foreign_key "matches", "words", column: "matched_word_id"
+  add_foreign_key "words", "verses"
 end

@@ -4,7 +4,7 @@ class CreateVerses < ActiveRecord::Migration[7.1]
       t.string :book
       t.integer :chapter
       t.integer :verse_number
-      t.string :text
+      t.text :text
 
       t.timestamps
     end
