@@ -4,7 +4,7 @@ require 'nokogiri'
 require 'fileutils'
 
 def hebrew_to_numerical(hebrew_string)
-  puts "hebrew_string: #{hebrew_string}"
+  # puts "hebrew_string: #{hebrew_string}"
   hebrew_string = hebrew_string.force_encoding('UTF-8')
   hebrew_chars = 'אבגדהוזחטיכלמנסעפצקרשת'
   values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400]
@@ -22,25 +22,47 @@ def numericise(chapter_verse)
 end
 
 def remove_punctuation(verse_text)
-  verse_text.gsub(/[{](פ|ס|ש)[}]|[.,;:]|-/, ' ').strip
+  verse_text.gsub(/[{](פ|ס|ש)[}]|[.,;:]/, "").gsub(/-/, " ")
+end
+
+def create_verse(paragraph_child, chapter_verse)
+  puts "Chapter, verse: #{chapter_verse}"
+  chapter, verse = numericise(chapter_verse)
+
+  # Capture the verse text by concatenating the text of all sibling elements
+  # until we reach the next <b> element
+  verse_text = ''
+  sibling = paragraph_child.next_sibling
+  while sibling && sibling.name != 'b'
+    verse_text += sibling.text
+    sibling = sibling.next_sibling
+  end
+
+  # puts "Verse text w punc: #{verse_text}"
+  verse_text = remove_punctuation(verse_text)
+  # puts "Verse text w/o punc: #{verse_text}"
+  verse = Verse.create!(
+    chapter: chapter,
+    verse_number: verse,
+    text: verse_text
+  )
+  # puts "Created verse."
+  verse
 end
 
 def create_words_from_verse(verse)
   verse_id = verse.id
-  puts "Creating words from #{verse.chapter}, #{verse.verse_number}: #{verse.id}"
-  puts "Verse attributes: #{verse.attributes.inspect}"
-  puts "Verse persisted?: #{verse.persisted?}"
-  verse.text.split(' ').each_with_index { |word, index|
-    next if word =~ /^\s+$/
+  # puts "Creating words from #{verse.chapter}, #{verse.verse_number}: #{verse.id}"
+  verse_split = verse.text.split.map(&:strip).reject(&:empty?)
+  verse_split.each_with_index { |word, index|
     word_record = Word.create!(verse_id: verse_id, text: word, position: index + 1)
-    puts "Created word: #{word_record.attributes.inspect}"
+    # puts "Created word: #{word_record.attributes.inspect}"
   }
   puts "Created words from #{verse.chapter}, #{verse.verse_number}"
 end
 
 def parse_biblical_text(file_path)
   doc = File.open(file_path) { |f| Nokogiri::HTML(f) }
-  data = []
   started_processing = false
 
   doc.css('p').each { |paragraph|
@@ -51,27 +73,7 @@ def parse_biblical_text(file_path)
           started_processing = true
         end
         if started_processing
-          puts "Chapter, verse: #{chapter_verse}"
-          chapter, verse = numericise(chapter_verse)
-
-          # Capture the verse text by concatenating the text of all sibling elements
-          # until we reach the next <b> element
-          verse_text = ''
-          sibling = child.next_sibling
-          while sibling && sibling.name != 'b'
-            verse_text += sibling.text
-            sibling = sibling.next_sibling
-          end
-
-          puts "Verse text w punc: #{verse_text}"
-          verse_text = remove_punctuation(verse_text)
-          puts "Verse text w/o punc: #{verse_text}"
-          verse = Verse.create!(
-            chapter: chapter,
-            verse_number: verse,
-            text: verse_text
-          )
-          puts "Created verse: #{verse}"
+          verse = create_verse(child, chapter_verse)
           create_words_from_verse(verse)
         end
       end
