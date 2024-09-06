@@ -25,7 +25,7 @@ def remove_punctuation(verse_text)
   verse_text.gsub(/[{](פ|ס|ש)[}]|[.,;:]/, "").gsub(/-/, " ")
 end
 
-def create_verse(paragraph_child, chapter_verse)
+def create_verse(paragraph_child, chapter_verse, book)
   puts "Chapter, verse: #{chapter_verse}"
   chapter, verse = numericise(chapter_verse)
 
@@ -42,6 +42,7 @@ def create_verse(paragraph_child, chapter_verse)
   verse_text = remove_punctuation(verse_text)
   # puts "Verse text w/o punc: #{verse_text}"
   verse = Verse.create!(
+    book: book,
     chapter: chapter,
     verse_number: verse,
     text: verse_text
@@ -82,16 +83,17 @@ end
 def parse_biblical_text(file_path)
   doc = File.open(file_path) { |f| Nokogiri::HTML(f) }
   started_processing = false
-
+  book = nil
   doc.css('p').each { |paragraph|
     paragraph.children.each { |child|
       if child.name == 'b'
         chapter_verse = child.text
         if chapter_verse == 'א,א' && !started_processing
           started_processing = true
+          book = child.previous_element('h1').text
         end
         if started_processing
-          verse = create_verse(child, chapter_verse)
+          verse = create_verse(child, chapter_verse, book)
           create_words_from_verse(verse)
         end
       end
