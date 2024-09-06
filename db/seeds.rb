@@ -78,7 +78,7 @@ def find_matches(words)
         Match.create(word: word, matched_word_id: matched_word_id) unless Match.exists?(word: word, matched_word_id: matched_word_id)
       }
     end
-    puts "Progress: #{100.0 * (word.id / count)}%"
+    puts "Done: #{100.0 * (word.id / count)}% of words"
   }
 end
 
@@ -96,15 +96,15 @@ def parse_biblical_text(file_path)
         if started_processing
           verse = create_verse(child, chapter_verse)
           create_words_from_verse(verse)
-          find_matches(Word.all)
         end
       end
     }
   }
+  find_matches(Word.all)
 end
 
-# file_path = File.join(Rails.root, '..', 'Tanach_Text', 'x001', 'x', 'x01.htm')
-# parse_biblical_text(file_path)
+file_path = File.join(Rails.root, '..', 'Tanach_Text', 'x001', 'x', 'x01.htm')
+parse_biblical_text(file_path)
 
 # ==============================================================================
 # Create words from pre-existing Verse records:
@@ -120,7 +120,9 @@ end
 # end
 # ==============================================================================
 # Create matches from pre-existing Word records:
-find_matches(Word.all)
+# find_matches(Word.all)
+
+# ==============================================================================
 
 # Useful lines for another time:
 # require 'nokogiri'
