@@ -103,7 +103,7 @@ def parse_biblical_text(file_path)
   find_matches(Word.all)
 end
 
-file_path = File.join(Rails.root, '..', 'Tanach_Text', 'x001', 'x', 'x01.htm')
+file_path = File.join(Rails.root, 'db', 'raw_htm_text', 'x01.htm')
 parse_biblical_text(file_path)
 
 # ==============================================================================
