@@ -22,7 +22,7 @@ def numericise(chapter_verse)
 end
 
 def remove_punctuation(verse_text)
-  verse_text.gsub(/[.,;:]|-|פ|ס|ש/, ' ').strip
+  verse_text.gsub(/[{](פ|ס|ש)[}]|[.,;:]|-/, ' ').strip
 end
 
 def parse_biblical_text(file_path)
