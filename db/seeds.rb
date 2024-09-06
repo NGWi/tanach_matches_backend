@@ -62,6 +62,7 @@ def create_words_from_verse(verse)
 end
 
 def find_matches(words)
+  count = words.count
   searched_words = {}
   words.each { |word|
     puts word.text
@@ -77,6 +78,7 @@ def find_matches(words)
         Match.create(word: word, matched_word_id: matched_word_id) unless Match.exists?(word: word, matched_word_id: matched_word_id)
       }
     end
+    puts "Progress: #{100.0 * (word.id / count)}%"
   }
 end
 
