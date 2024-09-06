@@ -17,4 +17,7 @@ Rails.application.routes.draw do
   # Route 3: GET one word (show word with nested matches)
   get '/words/:id', to: 'words#show'
 
+  # Route 4: GET a verse by chapter and verse number
+  get '/verses/:chapter/:verse', to: 'verses#show'
+
 end
