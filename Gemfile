@@ -68,3 +68,4 @@ end
 
 gem 'nokogiri'
 gem 'fileutils'
+gem "rack-cors"
