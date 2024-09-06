@@ -5,7 +5,7 @@ class VersesController < ApplicationController
   end
 
   def show
-    if params[:id]
+    if params[:id] # That the GET route matches '/verses/x' with no '/y' afterwards.
       verse = Verse.find(params[:id])
     else
       chapter = params[:chapter].to_i
