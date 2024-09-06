@@ -61,6 +61,25 @@ def create_words_from_verse(verse)
   puts "Created words from #{verse.chapter}, #{verse.verse_number}"
 end
 
+def find_matches(words)
+  searched_words = {}
+  words.each { |word|
+    puts word.text
+    if !searched_words[word.text]
+      puts "Searching for #{word.text}"
+      searched_words[word.text] = []
+      words.each { |other_word|
+        if other_word.text.include?(word.text)
+          searched_words[word.text] << other_word.id
+        end
+      }
+      searched_words[word.text].each { |matched_word_id|
+        Match.create(word: word, matched_word_id: matched_word_id) unless Match.exists?(word: word, matched_word_id: matched_word_id)
+      }
+    end
+  }
+end
+
 def parse_biblical_text(file_path)
   doc = File.open(file_path) { |f| Nokogiri::HTML(f) }
   started_processing = false
@@ -75,14 +94,15 @@ def parse_biblical_text(file_path)
         if started_processing
           verse = create_verse(child, chapter_verse)
           create_words_from_verse(verse)
+          find_matches(Word.all)
         end
       end
     }
   }
 end
 
-file_path = File.join(Rails.root, '..', 'Tanach_Text', 'x001', 'x', 'x01.htm')
-parse_biblical_text(file_path)
+# file_path = File.join(Rails.root, '..', 'Tanach_Text', 'x001', 'x', 'x01.htm')
+# parse_biblical_text(file_path)
 
 # ==============================================================================
 # Create words from pre-existing Verse records:
@@ -97,6 +117,8 @@ parse_biblical_text(file_path)
 #   id += 1
 # end
 # ==============================================================================
+# Create matches from pre-existing Word records:
+find_matches(Word.all)
 
 # Useful lines for another time:
 # require 'nokogiri'
