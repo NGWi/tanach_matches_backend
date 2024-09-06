@@ -4,47 +4,71 @@ require 'nokogiri'
 require 'fileutils'
 
 def hebrew_to_numerical(hebrew_string)
+  puts "hebrew_string: #{hebrew_string}"
+  hebrew_string = hebrew_string.force_encoding('UTF-8')
   hebrew_chars = 'אבגדהוזחטיכלמנסעפצקרשת'
   values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400]
-  hebrew_string.split('').map { |char|
+  hebrew_string.chars.map { |char|
     index = hebrew_chars.index(char)
     values[index]
   }.sum
 end
 
+def numericise(chapter_verse)
+  chapter, verse = chapter_verse.split(',')
+  chapter = hebrew_to_numerical(chapter)
+  verse = hebrew_to_numerical(verse)
+  [chapter, verse]
+end
+
+def remove_punctuation(verse_text)
+  verse_text.gsub(/[.,;:]|-|פ|ס|ש/, ' ').strip
+end
+
 def parse_biblical_text(file_path)
   doc = File.open(file_path) { |f| Nokogiri::HTML(f) }
   data = []
+  started_processing = false
 
-  # Find all <h1> elements that contain chapter titles
-  doc.css('p').each { |verse_element|
-    # Extract verse text
-    verse_text = verse_element.text
-    puts "Verse text: #{verse_text}"
-    # Extract chapter and verse numbers from the verse text
-    if verse_text =~ /\b(א),([א-ת]+)\b/
-      chapter = hebrew_to_numerical($1)
-      verse_number = hebrew_to_numerical($2)
-      data << {
-        chapter: chapter,
-        verse_number: verse_number,
-        text: verse_text
-      }
-    end
+  doc.css('p').each { |paragraph|
+    paragraph.children.each { |child|
+      if child.name == 'b'
+        chapter_verse = child.text
+        if chapter_verse == 'א,א' && !started_processing
+          started_processing = true
+        end
+        if started_processing
+          puts "Chapter, verse: #{chapter_verse}"
+          chapter, verse = numericise(chapter_verse)
+
+          # Capture the verse text by concatenating the text of all sibling elements
+          # until we reach the next <b> element
+          verse_text = ''
+          sibling = child.next_sibling
+          while sibling && sibling.name != 'b'
+            verse_text += sibling.text
+            sibling = sibling.next_sibling
+          end
+
+          puts "Verse text w punc: #{verse_text}"
+          verse_text = remove_punctuation(verse_text)
+          puts "Verse text w/o punc: #{verse_text}"
+          Verse.create!(
+            chapter: chapter,
+            verse_number: verse,
+            text: verse_text
+          )
+          puts "Created verse: #{chapter}, #{verse}: #{verse_text}"
+        end
+      end
+    }
   }
-
-  puts "Data: #{data.inspect}"
-  data
 end
 
-file_path = File.join(Rails.root, '..', 'Tanach_Text', 'k001', 'k', 'k01.htm')
-data = parse_biblical_text(file_path)
+file_path = File.join(Rails.root, '..', 'Tanach_Text', 'x001', 'x', 'x01.htm')
+parse_biblical_text(file_path)
 
-# Seed the data into the database
-data.each { |verse|
-  puts "Creating verse #{verse[:chapter]}, #{verse[:verse_number]}: #{verse[:text]}"
-  verse_instance = Verse.create!(chapter: verse[:chapter], verse_number: verse[:verse_number], text: verse[:text])
-  puts "Created verse instance: #{verse_instance.inspect}"
+
   # Split the verse text into individual words
   # words = verse[:text].split
   
@@ -52,7 +76,7 @@ data.each { |verse|
   # words.each { |word|
   #   Word.create!(text: word, position: words.index(word) + 1, verse_id: verse_instance.id)
   # }
-}
+
 
 # require 'nokogiri'
 # require 'open-uri'
