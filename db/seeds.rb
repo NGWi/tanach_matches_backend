@@ -68,14 +68,11 @@ def find_matches(words)
     puts word.text
     if !searched_words[word.text]
       puts "Searching for #{word.text}"
-      searched_words[word.text] = []
+      searched_words[word.text] = true
       words.each { |other_word|
         if other_word.text.include?(word.text)
-          searched_words[word.text] << other_word.id
+          Match.create(word: word, matched_word_id: other_word.id) unless Match.exists?(word: word, matched_word_id: other_word.id)
         end
-      }
-      searched_words[word.text].each { |matched_word_id|
-        Match.create(word: word, matched_word_id: matched_word_id) unless Match.exists?(word: word, matched_word_id: matched_word_id)
       }
     end
     puts "Done: #{100.0 * (word.id / count)}% of words"
