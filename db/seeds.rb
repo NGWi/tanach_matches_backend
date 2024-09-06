@@ -75,7 +75,7 @@ def find_matches(words)
         end
       }
     end
-    puts "Done: #{100.0 * (word.id / count)}% of words"
+    puts "Created matches for #{100.0 * (word.id / count)}% of words"
   }
 end
 
