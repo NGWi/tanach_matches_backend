@@ -1,13 +1,19 @@
 require "test_helper"
 
 class VersesControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get verses_index_url
-    assert_response :success
+  test "index" do
+    get "/verses.json"
+    assert_response 200
+
+    data = JSON.parse(response.body)
+    assert_equal Verse.count, data.length
   end
 
-  test "should get show" do
-    get verses_show_url
-    assert_response :success
+  test "show" do
+    get "/verses/#{Verse.first.id}.json"
+    assert_response 200
+
+    data = JSON.parse(response.body)
+    assert_equal ["id", "book", "chapter", "verse_number", "text", "created_at", "updated_at", "words"], data.keys
   end
 end
