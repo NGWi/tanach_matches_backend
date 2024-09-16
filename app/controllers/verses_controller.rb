@@ -12,6 +12,6 @@ class VersesController < ApplicationController
       verse_number = params[:verse].to_i
       verse = Verse.find_by(chapter: chapter, verse_number: verse_number)
     end
-    render json: verse, include: {words: {include: {matches: {only: [:matched_word_id, :matched_word], include: {matched_word: {only: :text}}}}}}
+    render json: verse, include: {words: {include: {matches: {only: [:matched_word_id, :matched_word], include: {matched_word: {only: [:text, :verse]}}}}}}
   end
 end
