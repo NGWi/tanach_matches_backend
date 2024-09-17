@@ -1,24 +1,50 @@
-# README
+# Tanach Matches Backend
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Overview
 
-Things you may want to cover:
+Tanach Matches is a web application that allows users to find matches for words in the Tanach (Hebrew Bible), where the word appears at least as part of the "matched word." This backend of the application is built using Ruby on Rails and provides APIs for fetching verses, words, matches, and their associated data.
+I built an associated frontend using React. It can be found at [https://github.com/NGWi/tanach_matches_frontend](https://github.com/NGWi/tanach_matches_frontend).
 
-* Ruby version
+Please note that this is a work in progress. Items in parentheses below are currently in midst of development.
+## Features 
 
-* System dependencies
+- List all verses in order with their (book,) chapter, and verse number
+- Zoom in on a specific verse to see all its words with their associated data
+- (Go directly to verses by chapter and verse number)
+- Fetch a word and all its connected data
+- Retrieve matches for words
+- Fetch matched words and their associated verses
 
-* Configuration
+## Installation
 
-* Database creation
+To get started with the Tanach Matches backend, follow these steps:
 
-* Database initialization
+1. Clone the repository: `git clone https://github.com/your-username/tanach-matches-backend.git`
+2. Install dependencies: `bundle install`
+3. Set up the database: `rails db:create` and `rails db:migrate`
+4. Upload a document to the database: Place it in the `db/raw_htm_text` folder, and replace the current file_name at the beginning of `db/seeds.rb` with the name of the document. Then run `rails db:seed`
+5. Start the server: `rails server`
 
-* How to run the test suite
+## Usage
 
-* Services (job queues, cache servers, search engines, etc.)
+The backend provides the following APIs for interacting with the data:
 
-* Deployment instructions
+  # Route 1: GET all verses (index without nested data)
+  get '/verses'
 
-* ...
+  # Route 2: GET one verse (show verse with nested word data)
+  get '/verses/:id'
+
+  # Route 3: GET one word (show word with nested matches)
+  get '/words/:id'
+
+  (# Route 4: GET a verse by chapter and verse number
+  get '/verses/:chapter/:verse')
+
+## Contributing
+
+Contributions are welcome! If you find any bugs or have ideas for new features, please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License.

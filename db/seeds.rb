@@ -1,3 +1,4 @@
+file_name = 'x01.htm'
 puts "Seeds file is running..."
 
 require 'nokogiri'
@@ -102,7 +103,7 @@ def parse_biblical_text(file_path)
   find_matches(Word.all)
 end
 
-file_path = File.join(Rails.root, 'db', 'raw_htm_text', 'x01.htm')
+file_path = File.join(Rails.root, 'db', 'raw_htm_text', file_name)
 parse_biblical_text(file_path)
 
 # ==============================================================================
