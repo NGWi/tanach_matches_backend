@@ -7,6 +7,8 @@ I built an associated frontend using React. It can be found at [https://github.c
 
 Please note that this is a work in progress. Items parenthesized and italicized below _(like this)_ are currently in midst of development.
 
+Also note that, so far, it has only been built to handle files with the format of the Tanach @ [https://mechon-mamre.org/i/t/x/x0.htm](https://mechon-mamre.org/), e.g., [https://mechon-mamre.org/i/t/x/x01.htm](https://mechon-mamre.org/i/t/x/x01.htm)
+
 ## Features 
 
 - List all verses in order with their _(book,)_ chapter, and verse number
@@ -23,7 +25,8 @@ To get started with the Tanach Matches backend, follow these steps:
 1. Clone the repository: `git clone https://github.com/your-username/tanach-matches-backend.git`
 2. Install dependencies: `bundle install`
 3. Set up the database: `rails db:create` and `rails db:migrate`
-4. Upload a document to the database: Place it in the `db/raw_htm_text` folder, and replace the current file_name at the beginning of `db/seeds.rb` with the name of the document. Then run `rails db:seed`
+4. Upload a document to the database: Place it in the `db/raw_htm_text` folder, and replace the current file_name at the beginning of `db/seeds.rb` with the name of the document. Then run `rails db:seed`.
+
 5. Start the server: `rails server`
 
 ## Usage
