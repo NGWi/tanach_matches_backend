@@ -6,6 +6,7 @@ Tanach Matches is a web application that allows users to find matches for words 
 I built an associated frontend using React. It can be found at [https://github.com/NGWi/tanach_matches_frontend](https://github.com/NGWi/tanach_matches_frontend).
 
 Please note that this is a work in progress. Items parenthesized and italicized below _(like this)_ are currently in midst of development.
+
 ## Features 
 
 - List all verses in order with their _(book,)_ chapter, and verse number
