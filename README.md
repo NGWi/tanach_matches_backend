@@ -1,5 +1,7 @@
 # Tanach Matches Backend
 
+![Image description](./public/Screenshot.png)
+
 ## Overview
 
 Tanach Matches is a full-stack application that allows users to instantly find all matches for words in the Tanach (Ancient Hebrew Bible), where the word appears at least as part of the "matched word." This backend of the application is built using Ruby on Rails and provides APIs for fetching verses, words, matches, and their associated data.
