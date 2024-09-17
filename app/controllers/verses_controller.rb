@@ -5,12 +5,14 @@ class VersesController < ApplicationController
   end
 
   def show
-    if params[:id] # That the GET route matches '/verses/x' with no '/y' afterwards.
-      verse = Verse.find(params[:id])
-    else
+    if params[:chapter] && params[:verse]
+      # Code block for verses/1/1
       chapter = params[:chapter].to_i
       verse_number = params[:verse].to_i
-      verse = Verse.find_by(chapter: chapter, verse_number: verse_number)
+      verse = Verse.find_by(chapter: chapter)
+    else
+      # Code block for verses/1
+      verse = Verse.find(params[:id])
     end
     render json: verse, include: {
       words: {
@@ -26,6 +28,6 @@ class VersesController < ApplicationController
           }
         }
       }
-    }
+    }, except: [:book]
   end
 end
