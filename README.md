@@ -29,17 +29,17 @@ To get started with the Tanach Matches backend, follow these steps:
 
 The backend provides the following APIs for interacting with the data:
 
-  # Route 1: GET all verses (index without nested data)
-  get '/verses'
+  ### Route 1: Fetch all verses (index without nested data)
+  GET '/verses'
 
-  # Route 2: GET one verse (show verse with nested word data)
-  get '/verses/:id'
+  ### Route 2: Fetch one verse (show verse with nested word data)
+  GET '/verses/:id'
 
-  # Route 3: GET one word (show word with nested matches)
-  get '/words/:id'
+  ### Route 3: Fetch one word (show word with nested matches)
+  GET '/words/:id'
 
-  (# Route 4: GET a verse by chapter and verse number
-  get '/verses/:chapter/:verse')
+  ( Route 4: Fetch a verse by chapter and verse number
+  GET '/verses/:chapter/:verse')
 
 ## Contributing
 
