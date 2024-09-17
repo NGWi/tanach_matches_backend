@@ -25,7 +25,7 @@ To get started with the Tanach Matches backend, follow these steps:
 1. Clone the repository: `git clone https://github.com/your-username/tanach-matches-backend.git`
 2. Install dependencies: `bundle install`
 3. Set up the database: `rails db:create` and `rails db:migrate`
-4. Upload a document to the database: Place it in the `db/raw_htm_text` folder, and replace the current file_name at the beginning of `db/seeds.rb` with the name of the document. Then run `rails db:seed`.
+4. Upload a document to the database: Place it in the `db/raw_htm_text` folder, and replace the current file_name at the beginning of `db/seeds.rb` with the name of the document. Then run `rails db:seed`
 
 5. Start the server: `rails server`
 
