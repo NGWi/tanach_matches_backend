@@ -33,3 +33,6 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore raw htm files which may be copywrited.
+db/raw_htm_text/*
