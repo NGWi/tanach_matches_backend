@@ -28,6 +28,6 @@ class VersesController < ApplicationController
           }
         }
       }
-    }, except: [:book]
+    }
   end
 end
