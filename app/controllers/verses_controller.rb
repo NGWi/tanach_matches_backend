@@ -1,6 +1,6 @@
 class VersesController < ApplicationController
   def index
-    verses = Verse.all
+    verses = Verse.order(:id).all
     render json: verses
   end
 
