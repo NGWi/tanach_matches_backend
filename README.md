@@ -5,15 +5,15 @@
 Tanach Matches is a web application that allows users to find matches for words in the Tanach (Hebrew Bible), where the word appears at least as part of the "matched word." This backend of the application is built using Ruby on Rails and provides APIs for fetching verses, words, matches, and their associated data.
 I built an associated frontend using React. It can be found at [https://github.com/NGWi/tanach_matches_frontend](https://github.com/NGWi/tanach_matches_frontend).
 
-Please note that this is a work in progress. Items in parentheses below are currently in midst of development.
+Please note that this is a work in progress. Items parenthesized and italicized below _(like this)_ are currently in midst of development.
 ## Features 
 
-- List all verses in order with their (book,) chapter, and verse number
+- List all verses in order with their _(book,)_ chapter, and verse number
 - Zoom in on a specific verse to see all its words with their associated data
-- (Go directly to verses by chapter and verse number)
 - Fetch a word and all its connected data
 - Retrieve matches for words
 - Fetch matched words and their associated verses
+- _(Go directly to verses by chapter and verse number)_
 
 ## Installation
 
@@ -38,8 +38,8 @@ The backend provides the following APIs for interacting with the data:
   ### Route 3: Fetch one word (show word with nested matches)
   GET '/words/:id'
 
-  ( Route 4: Fetch a verse by chapter and verse number
-  GET '/verses/:chapter/:verse')
+  _(Route 4: Fetch a verse by chapter and verse number
+  GET '/verses/:chapter/:verse')_
 
 ## Contributing
 
