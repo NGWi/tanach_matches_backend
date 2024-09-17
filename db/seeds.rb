@@ -106,6 +106,9 @@ file_path = File.join(Rails.root, 'db', 'raw_htm_text', 'x01.htm')
 parse_biblical_text(file_path)
 
 # ==============================================================================
+# Set all verses with no book to specified book:
+# Verse.where(book: nil).update_all(book: "Breishis")
+# ==============================================================================
 # Create words from pre-existing Verse records:
 # puts "Testing for Verse records..."
 # Verse.first(10).each { |verse|
