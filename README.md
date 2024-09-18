@@ -25,6 +25,8 @@ A list of planned features for the project can be found @ [https://github.com/NG
 
 ## Installation
 
+Prerequisites: Ruby, Ruby on Rails, and PostgreSQL.
+
 To get started with the Tanach Matches backend, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/your-username/tanach-matches-backend.git`
