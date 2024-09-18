@@ -6,28 +6,14 @@ class VersesController < ApplicationController
 
   def show
     if params[:chapter] && params[:verse]
-      # Code block for verses/1/1
+      # Code block for verses/chapter/verse
       chapter = params[:chapter].to_i
       verse_number = params[:verse].to_i
       verse = Verse.find_by(chapter: chapter)
     else
-      # Code block for verses/1
+      # Code block for verses/id
       verse = Verse.find(params[:id])
     end
-    render json: verse, include: {
-      words: {
-        include: {
-          matches: {
-            only: [:matched_word_id],
-            include: {
-              matched_word: {
-                only: [:text],
-                include: { verse: { only: [:text] } }
-              }
-            }
-          }
-        }
-      }
-    }
+    render json: verse, include: :words
   end
 end
