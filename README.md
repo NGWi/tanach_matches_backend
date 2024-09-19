@@ -16,7 +16,7 @@ A list of planned features for the project can be found @ [https://github.com/NG
 
 ## Features
 
-- List all verses in order with their _(book,)_ chapter, and verse number
+- List all verses in order with their book, chapter, and verse number
 - Zoom in on a specific verse to see all its words with their associated data
 - Fetch a word and all its connected data
 - Retrieve matches for words
