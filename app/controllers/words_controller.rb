@@ -6,7 +6,7 @@ class WordsController < ApplicationController
             include: {  matched_word: { only: [:id, :text, :verse_id], include: { verse: {} } },
                         word: { only: [:id, :text, :verse_id], include: { verse: {} } } }       
               },
-    roots: { only: [:id, :text, :verse_id], include: { verse: { only: [:book, :chapter, :verse_number] } } }       
-   })
+    roots:                    { only: [:id, :text, :verse_id], include: { verse: {} } }   
+    })
   end
 end
