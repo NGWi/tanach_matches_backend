@@ -16,7 +16,7 @@ A list of planned features for the project can be found @ [https://github.com/NG
 
 ## Features
 
-- List all verses in order with their _(book,)_ chapter, and verse number
+- List all verses in order with their book, chapter, and verse number
 - Zoom in on a specific verse to see all its words with their associated data
 - Fetch a word and all its connected data
 - Retrieve matches for words
@@ -31,9 +31,10 @@ To get started with the Tanach Matches backend, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/your-username/tanach-matches-backend.git`
 2. Install dependencies: `bundle install`
-3. Set up the database: `rails db:create` and `rails db:migrate`
-4. Upload a document to the database: Place it in the `db/raw_htm_text` folder, and replace the current file_name at the beginning of `db/seeds.rb` with the name of the document. Then run `rails db:seed`
-5. Start the server: `rails server`
+3. Delete config/credentials.yml.enc. Then run `rails credentials:edit`, which will create a new key and encrypted credentials file.
+4. Set up the database: `rails db:create` and `rails db:migrate`
+5. Upload a document to the database: Place it in the `db/raw_htm_text` folder, and replace the current file_name at the beginning of `db/seeds.rb` with the name of the document. Then run `rails db:seed`
+6. Start the server: `rails server`
 
 ## Usage
 
