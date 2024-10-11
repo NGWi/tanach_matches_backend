@@ -12,7 +12,7 @@ Please note that this is a work in progress. Items parenthesized and italicized 
 
 Also note that, so far, it has only been built to handle files with the format of the Tanach @ [https://mechon-mamre.org/i/t/x/x0.htm](https://mechon-mamre.org/), e.g., [https://mechon-mamre.org/i/t/x/x01.htm](https://mechon-mamre.org/i/t/x/x01.htm)
 
-A list of planned features for the project can be found @ [https://github.com/NGWi/21a69a3a859f619e49eb25dc1c87a725](https://github.com/NGWi/21a69a3a859f619e49eb25dc1c87a725)
+A list of planned features for the project can be found @ [https://gist.github.com/NGWi/21a69a3a859f619e49eb25dc1c87a725](https://gist.github.com/NGWi/21a69a3a859f619e49eb25dc1c87a725)
 
 ## Features
 
